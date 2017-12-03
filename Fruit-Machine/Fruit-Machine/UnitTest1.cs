@@ -8,17 +8,20 @@ namespace Fruit_Machine
     public class UnitTest1
     {
         [Test]
-        public void TestMethod1()
+        public void NoMatchReels_Return_0()
         {
-
-            var reels = new List<string[]> { };
-            var spins=new int[]{};
-            Assert.AreEqual(0,Fruit(reels, spins));
+            var reels = new List<string[]> {
+                new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" },
+                new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" },
+                new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" }
+            };
+            var spins = new int[] { 0,1,2};
+            Assert.AreEqual(0, Fruit(reels, spins));
         }
 
         private int Fruit(List<string[]> reels, int[] spins)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }
