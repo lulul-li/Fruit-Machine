@@ -33,6 +33,11 @@ namespace Fruit_Machine
 
         private int Fruit(List<string[]> reels, int[] spins)
         {
+            if (reels[0][spins[0]] == reels[1][spins[1]] && reels[0][spins[0]] == reels[1][spins[2]])
+            {
+                return 100;
+            }
+
             return 0;
         }
     }
