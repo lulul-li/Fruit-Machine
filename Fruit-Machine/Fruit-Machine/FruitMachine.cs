@@ -22,10 +22,25 @@ namespace Fruit_Machine
         {
             if (ThreeOfTheSame(reels, spins))
             {
-                return score[reels[0][spins[0]]];
+                return GetScore(reels, spins);
+            }
+            if (TwoOfTheSame(reels, spins))
+            {
+                return GetScore(reels, spins)/10;
+
             }
 
             return 0;
+        }
+
+        private int GetScore(List<string[]> reels, int[] spins)
+        {
+            return score[reels[0][spins[0]]];
+        }
+
+        private static bool TwoOfTheSame(List<string[]> reels, int[] spins)
+        {
+            return reels[0][spins[0]] == reels[1][spins[1]] || reels[0][spins[0]] == reels[1][spins[2]] || reels[0][spins[1]] == reels[1][spins[2]];
         }
 
         private static bool ThreeOfTheSame(List<string[]> reels, int[] spins)
