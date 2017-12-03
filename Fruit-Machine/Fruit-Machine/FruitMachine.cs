@@ -4,7 +4,7 @@ namespace Fruit_Machine
 {
     public class FruitMachine
     {
-        private Dictionary<string, int> score=new Dictionary<string, int>()
+        private Dictionary<string, int> Scoring=new Dictionary<string, int>()
         {
             {"Wild",100 },
             {"Star",90 },
@@ -26,8 +26,11 @@ namespace Fruit_Machine
             }
             if (TwoOfTheSame(reels, spins))
             {
-                return GetScore(reels, spins)/10;
-
+                if (reels[0][spins[0]] == "Wild" || reels[1][spins[1]] == "Wild"|| reels[2][spins[2]] == "Wild")
+                {
+                   return GetScore(reels, spins) / 5;
+                }
+                return GetScore(reels, spins) / 10; ;
             }
 
             return 0;
@@ -35,7 +38,7 @@ namespace Fruit_Machine
 
         private int GetScore(List<string[]> reels, int[] spins)
         {
-            return score[reels[0][spins[0]]];
+            return Scoring[reels[0][spins[0]]];
         }
 
         private static bool TwoOfTheSame(List<string[]> reels, int[] spins)
