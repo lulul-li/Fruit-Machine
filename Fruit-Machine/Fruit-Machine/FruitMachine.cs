@@ -20,12 +20,17 @@ namespace Fruit_Machine
 
         public int Fruit(List<string[]> reels, int[] spins)
         {
-            if (reels[0][spins[0]] == reels[1][spins[1]] && reels[0][spins[0]] == reels[1][spins[2]])
+            if (ThreeOfTheSame(reels, spins))
             {
                 return score[reels[0][spins[0]]];
             }
 
             return 0;
+        }
+
+        private static bool ThreeOfTheSame(List<string[]> reels, int[] spins)
+        {
+            return reels[0][spins[0]] == reels[1][spins[1]] && reels[0][spins[0]] == reels[1][spins[2]];
         }
     }
 }
