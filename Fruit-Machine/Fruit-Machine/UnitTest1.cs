@@ -33,7 +33,7 @@ namespace Fruit_Machine
             Assert.AreEqual(90, _fruitMachine.Fruit(reels, spins));
         }
         [Test]
-        public void TwoStar_Return_90()
+        public void TwoStar_Return_9()
         {
             var reels = CreateReels();
             var spins = new int[] { 1, 1, 2 };
@@ -46,6 +46,14 @@ namespace Fruit_Machine
             var reels = CreateReels();
             var spins = new int[] { 1, 1, 0 };
             Assert.AreEqual(18, _fruitMachine.Fruit(reels, spins));
+        }
+
+        [Test]
+        public void TwoWild_Return_10()
+        {
+            var reels = CreateReels();
+            var spins = new int[] { 0, 0, 2 };
+            Assert.AreEqual(10, _fruitMachine.Fruit(reels, spins));
         }
         private static List<string[]> CreateReels()
         {
