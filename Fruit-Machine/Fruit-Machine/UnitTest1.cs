@@ -7,6 +7,8 @@ namespace Fruit_Machine
     [TestFixture]
     public class UnitTest1
     {
+        private readonly FruitMachine _fruitMachine = new FruitMachine();
+
         [Test]
         public void NoMatchReels_Return_0()
         {
@@ -16,7 +18,7 @@ namespace Fruit_Machine
                 new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" }
             };
             var spins = new int[] { 0,1,2};
-            Assert.AreEqual(0, Fruit(reels, spins));
+            Assert.AreEqual(0, _fruitMachine.Fruit(reels, spins));
         }
 
         [Test]
@@ -28,17 +30,19 @@ namespace Fruit_Machine
                 new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" }
             };
             var spins = new int[] { 0, 0, 0 };
-            Assert.AreEqual(100, Fruit(reels, spins));
+            Assert.AreEqual(100, _fruitMachine.Fruit(reels, spins));
         }
 
-        private int Fruit(List<string[]> reels, int[] spins)
+        [Test]
+        public void ThreeStar_Return_90()
         {
-            if (reels[0][spins[0]] == reels[1][spins[1]] && reels[0][spins[0]] == reels[1][spins[2]])
-            {
-                return 100;
-            }
-
-            return 0;
+            var reels = new List<string[]> {
+                new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" },
+                new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" },
+                new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" }
+            };
+            var spins = new int[] { 1, 1, 1 };
+            Assert.AreEqual(90, _fruitMachine.Fruit(reels, spins));
         }
     }
 }
