@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace Fruit_Machine
 {
@@ -26,7 +28,7 @@ namespace Fruit_Machine
             }
             if (TwoOfTheSame(reels, spins))
             {
-                if (reels[0][spins[0]] == "Wild" || reels[1][spins[1]] == "Wild"|| reels[2][spins[2]] == "Wild")
+                if (OneWild(reels, spins))
                 {
                    return GetScore(reels, spins) / 5;
                 }
@@ -34,6 +36,11 @@ namespace Fruit_Machine
             }
 
             return 0;
+        }
+
+        private static bool OneWild(List<string[]> reels, int[] spins)
+        {
+            return reels[0][spins[0]] == "Wild" || reels[1][spins[1]] == "Wild"|| reels[2][spins[2]] == "Wild";
         }
 
         private int GetScore(List<string[]> reels, int[] spins)
