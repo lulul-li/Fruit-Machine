@@ -7,10 +7,16 @@ namespace Fruit_Machine
     {
         private readonly Dictionary<string, int> _pointLookup = new Dictionary<string, int>()
         {
-            {"Star",9 },
-            {"Bell",8 },
+            {"Jack", 1},
+            {"Queen", 2},
             {"King", 3},
-            {"Wild", 10},
+            {"Bar", 4},
+            {"Cherry", 5},
+            {"Seven", 6},
+            {"Shell", 7},
+            {"Bell", 8},
+            {"Star", 9},
+            {"Wild", 10}
         };
 
         private readonly Dictionary<int, int> _oddsLookup = new Dictionary<int, int>()

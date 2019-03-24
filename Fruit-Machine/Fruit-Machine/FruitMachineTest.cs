@@ -61,7 +61,31 @@ namespace Fruit_Machine
             SpinScoreShouldBe(8);
         }
 
+        [Test]
+        public void Three_Bell_Return_80()
+        {
+            var reel1 = new[] { "King", "Cherry", "Bar", "Jack", "Seven", "Queen", "Star", "Shell", "Bell", "Wild" };
+            var reel2 = new[] { "Bell", "Seven", "Jack", "Queen", "Bar", "Star", "Shell", "Wild", "Cherry", "King" };
+            var reel3 = new[] { "Wild", "King", "Queen", "Seven", "Star", "Bar", "Shell", "Cherry", "Jack", "Bell" };
 
+            GivenReels(reel1, reel2, reel3);
+            GivenSpins(8, 0, 9);
+
+            SpinScoreShouldBe(80);
+        }
+
+        [Test]
+        public void Two_Bell_One_Wild_Return_16()
+        {
+            var reel1 = new[] { "King", "Cherry", "Bar", "Jack", "Seven", "Queen", "Star", "Shell", "Bell", "Wild" };
+            var reel2 = new[] { "Bell", "Seven", "Jack", "Queen", "Bar", "Star", "Shell", "Wild", "Cherry", "King" };
+            var reel3 = new[] { "Wild", "King", "Queen", "Seven", "Star", "Bar", "Shell", "Cherry", "Jack", "Bell" };
+
+            GivenReels(reel1, reel2, reel3);
+            GivenSpins(8, 0, 0);
+
+            SpinScoreShouldBe(16);
+        }
         private void GivenReels(string[] reel1, string[] reel2, string[] reel3)
         {
             _reels = new List<string[]> { reel1, reel2, reel3 };
