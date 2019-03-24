@@ -8,52 +8,73 @@ namespace Fruit_Machine
     public class UnitTest1
     {
         private readonly FruitMachine _fruitMachine = new FruitMachine();
+        private List<string[]> _reels;
+        private int[] _spins;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _reels = CreateReels();
+
+        }
 
         [Test]
         public void NoMatchReels_Return_0()
         {
-            var reels = CreateReels();
-            var spins = new int[] { 0,1,2};
-            Assert.AreEqual(0, _fruitMachine.Fruit(reels, spins));
+            GivenSpin(0, 1, 2);
+
+            SpinScoreShouldBe(0);
+        }
+
+        private int[] GivenSpin(params int[] spinsNumber)
+        {
+            return _spins = spinsNumber;
+        }
+
+        private void SpinScoreShouldBe(int expected)
+        {
+            Assert.AreEqual(expected, _fruitMachine.Fruit(_reels, _spins));
         }
 
         [Test]
         public void ThreeWild_Return_100()
         {
-            var reels = CreateReels();
-            var spins = new int[] { 0, 0, 0 };
-            Assert.AreEqual(100, _fruitMachine.Fruit(reels, spins));
+            GivenSpin(0, 0, 0);
+            SpinScoreShouldBe(100);
         }
 
         [Test]
         public void ThreeStar_Return_90()
         {
-            var reels = CreateReels();
-            var spins = new int[] { 1, 1, 1 };
-            Assert.AreEqual(90, _fruitMachine.Fruit(reels, spins));
+            GivenSpin(1, 1, 1);
+
+            SpinScoreShouldBe(90);
+
         }
         [Test]
         public void TwoStar_Return_9()
         {
-            var reels = CreateReels();
-            var spins = new int[] { 1, 1, 2 };
-            Assert.AreEqual(9, _fruitMachine.Fruit(reels, spins));
+            GivenSpin(1, 1, 2);
+
+            SpinScoreShouldBe(9);
         }
 
         [Test]
         public void TwoStar_OneWild_Return_18()
         {
-            var reels = CreateReels();
-            var spins = new int[] { 1, 1, 0 };
-            Assert.AreEqual(18, _fruitMachine.Fruit(reels, spins));
-        }
+            GivenSpin(1, 1, 0);
 
+            SpinScoreShouldBe(18);
+
+        }
+        [Ignore("ignore")]
         [Test]
         public void TwoWild_Return_10()
         {
-            var reels = CreateReels();
-            var spins = new int[] { 0, 0, 2 };
-            Assert.AreEqual(10, _fruitMachine.Fruit(reels, spins));
+            GivenSpin(0, 0, 2);
+
+            SpinScoreShouldBe(10);
+
         }
         private static List<string[]> CreateReels()
         {
