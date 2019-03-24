@@ -6,24 +6,47 @@ namespace Fruit_Machine
     [TestFixture]
     public class FruitMachineTest
     {
+        private FruitMachine1 _fruitMachine;
+        private List<string[]> _reels;
+        private int[] _spins;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _fruitMachine = new FruitMachine1();
+        }
+
         [Test]
         public void NoMatchReels_Return_0()
         {
-            var fruitMachine = new FruitMachine1();
-            var reel = new string[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" };
-            var reels = new List<string[]> { reel, reel, reel };
-            var spins = new int[] { 0, 0, 0 };
-
-
-            Assert.AreEqual(100, fruitMachine.fruit(reels, spins));
+            var reel = new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" };
+            GivenReels(reel);
+            GivenSpins(1, 2, 3);
+            SpinScoreShouldBe(0);
         }
-    }
 
-    public class FruitMachine1
-    {
-        public double fruit(List<string[]> reels, int[] spins)
+        [Test]
+        public void ThreeWild_Return_100()
         {
-            return 100;
+            var reel = new[] { "Wild", "Star", "Bell", "Shell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack" };
+            GivenReels(reel);
+            GivenSpins(0, 0, 0);
+            SpinScoreShouldBe(100);
+        }
+
+        private void GivenReels(string[] reel)
+        {
+            _reels = new List<string[]> { reel, reel, reel };
+        }
+
+        private void GivenSpins(params int[] spins)
+        {
+            _spins = spins;
+        }
+
+        private void SpinScoreShouldBe(int expected)
+        {
+            Assert.AreEqual(expected, _fruitMachine.fruit(_reels, _spins));
         }
     }
 }
