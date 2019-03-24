@@ -28,24 +28,34 @@ namespace Fruit_Machine
 
         public double fruit(List<string[]> reels, int[] spins)
         {
-            var fruitIcon = GetMostCountIcon(reels, spins);
-
-            return GetScore(fruitIcon);
-        }
-
-        private int GetScore(FruitIcon fruitIcon)
-        {
-            return _pointLookup[fruitIcon.Name] * _oddsLookup[fruitIcon.Count];
-        }
-
-        private static FruitIcon GetMostCountIcon(List<string[]> reels, int[] spins)
-        {
             var spinResult = spins.Select((c, r) => reels[r][c]).ToList();
+
+            return GetScore(spinResult);
+
+        }
+
+        private int GetScore(List<string> spinResult)
+        {
+            var fruitIcon = GetMostCountIcon(spinResult);
+            var score = _pointLookup[fruitIcon.Name] * _oddsLookup[fruitIcon.Count];
+
+            return ShouldDoubleScore(fruitIcon, spinResult)
+                ? score * 2
+                : score;
+        }
+
+        private static bool ShouldDoubleScore(FruitIcon fruitIcon, List<string> spinResult)
+        {
+            return fruitIcon.Count == 2 && fruitIcon.Name != "Wild" && spinResult.Any(x => x == "Wild");
+        }
+
+        private static FruitIcon GetMostCountIcon(List<string> spinResult)
+        {
             return spinResult.GroupBy(x => x).Select(x => new FruitIcon
-                {
-                    Name=x.Key,
-                    Count = x.Count()
-                }
+            {
+                Name = x.Key,
+                Count = x.Count()
+            }
             ).OrderByDescending(x => x.Count).First();
         }
     }
