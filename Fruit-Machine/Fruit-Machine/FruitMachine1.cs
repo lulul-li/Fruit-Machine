@@ -5,6 +5,13 @@ namespace Fruit_Machine
 {
     public class FruitMachine1
     {
+        private readonly Dictionary<int, int> _oddsLookup = new Dictionary<int, int>()
+        {
+            { 1,0},
+            { 2,1},
+            { 3,10},
+        };
+
         private readonly Dictionary<string, int> _pointLookup = new Dictionary<string, int>()
         {
             {"Jack", 1},
@@ -19,19 +26,15 @@ namespace Fruit_Machine
             {"Wild", 10}
         };
 
-        private readonly Dictionary<int, int> _oddsLookup = new Dictionary<int, int>()
-        {
-            { 1,0},
-            { 2,1},
-            { 3,10},
-        };
-
         public double fruit(List<string[]> reels, int[] spins)
         {
-            var spinResult = spins.Select((c, r) => reels[r][c]).ToList();
-
+            var spinResult = GetSpinResult(reels, spins);
             return GetScore(spinResult);
+        }
 
+        private static List<string> GetSpinResult(List<string[]> reels, int[] spins)
+        {
+            return spins.Select((c, r) => reels[r][c]).ToList();
         }
 
         private int GetScore(List<string> spinResult)
@@ -44,11 +47,6 @@ namespace Fruit_Machine
                 : score;
         }
 
-        private static bool ShouldDoubleScore(FruitIcon fruitIcon, List<string> spinResult)
-        {
-            return fruitIcon.Count == 2 && fruitIcon.Name != "Wild" && spinResult.Any(x => x == "Wild");
-        }
-
         private static FruitIcon GetMostCountIcon(List<string> spinResult)
         {
             return spinResult.GroupBy(x => x).Select(x => new FruitIcon
@@ -57,6 +55,11 @@ namespace Fruit_Machine
                 Count = x.Count()
             }
             ).OrderByDescending(x => x.Count).First();
+        }
+
+        private static bool ShouldDoubleScore(FruitIcon fruitIcon, List<string> spinResult)
+        {
+            return fruitIcon.Count == 2 && fruitIcon.Name != "Wild" && spinResult.Any(x => x == "Wild");
         }
     }
 }
